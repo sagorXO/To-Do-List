@@ -1,0 +1,401 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 20px;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    font-weight: 600;
+}
+
+.input-section {
+    display: flex;
+    margin-bottom: 20px;
+    gap: 10px; /* Space out input elements */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+#newTaskInput {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    outline: none;
+    transition: border-color 0.3s ease;
+    min-width: 150px; /* Ensure input doesn't get too small */
+}
+
+#newTaskInput:focus {
+    border-color: #5cb85c;
+}
+
+/* ASSET: Style for the priority select box */
+#taskPriorityInput {
+    padding: 10px 12px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    outline: none;
+    background-color: #f8f8f8;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+#taskPriorityInput:focus {
+    border-color: #007bff;
+}
+
+#addTaskButton {
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    flex-shrink: 0; /* Prevent button from shrinking */
+}
+
+#addTaskButton:hover {
+    background-color: #4cae4c;
+    transform: translateY(-2px);
+}
+
+.filters {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filters button {
+    background-color: #e9ecef;
+    color: #555;
+    border: 1px solid #dee2e6;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    flex: 1 1 auto; /* Allow buttons to grow and shrink */
+    min-width: 90px;
+}
+
+.filters button:hover {
+    background-color: #d1d8dc;
+}
+
+.filters button.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+#taskList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#taskList li {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease-in-out; /* ASSET: Smooth transitions for properties like opacity, height, transform */
+    overflow: hidden; /* Helps with height transitions */
+    cursor: grab; /* ASSET: Indicate draggable */
+}
+
+#taskList li:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+#taskList li:active {
+    cursor: grabbing; /* ASSET: Cursor feedback when dragging */
+}
+
+/* ASSET: Class for the item being dragged to give visual feedback */
+.dragging {
+    opacity: 0.5;
+    background-color: #e0e0e0;
+    border: 1px dashed #999;
+}
+
+#taskList li.completed {
+    background-color: #e6ffe6;
+    text-decoration: line-through;
+    color: #888;
+}
+
+/* ASSET: Styles for task text and priority display */
+#taskList li .task-text-and-priority {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    cursor: pointer;
+    padding-right: 10px; /* Space between text/priority and buttons */
+    word-break: break-word; /* Prevents long words from overflowing */
+}
+
+/* #taskList li .task-text {
+     Add any specific styles for the task text itself here if needed 
+} */
+
+.task-priority {
+    font-size: 0.8em;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 8px;
+    font-weight: bold;
+    color: #fff;
+    flex-shrink: 0; /* Prevent priority tag from shrinking */
+}
+
+/* ASSET: Priority specific colors */
+.priority-low {
+    background-color: #28a745; /* Green */
+}
+
+.priority-medium {
+    background-color: #ffc107; /* Yellow/Orange */
+    color: #333; /* Darker text for contrast */
+}
+
+.priority-high {
+    background-color: #dc3545; /* Red */
+}
+
+#taskList li .task-buttons {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0; /* Prevent buttons from shrinking */
+}
+
+#taskList li button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: transform 0.2s ease;
+}
+
+#taskList li button:hover {
+    transform: scale(1.1);
+}
+
+#taskList li .complete-btn {
+    color: #28a745; /* Green for complete */
+}
+
+#taskList li.completed .complete-btn {
+    color: #6c757d; /* Grey when completed */
+}
+
+#taskList li .delete-btn {
+    color: #dc3545; /* Red for delete */
+}
+
+.actions {
+    text-align: center;
+    margin-top: 30px;
+}
+
+#clearAllButton {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.95em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#clearAllButton:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+}
+
+/* ASSET: Task animation states */
+/* When a task is added - you'd add this class temporarily via JS */
+.task-added {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.task-added.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* When a task is deleted - you'd add this class temporarily via JS */
+.task-deleted {
+    opacity: 0;
+    height: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    transform: translateX(-100%);
+    pointer-events: none; /* Prevent interaction during fade out */
+}
+
+/* ASSET: Basic Modal Styles */
+.modal {
+    display: none; /* Hidden by default, JavaScript will change to 'flex' */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    position: relative;
+    text-align: center;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+}
+
+.modal-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.confirm-button, .cancel-button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.confirm-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+
+.confirm-button:hover {
+    background-color: #c82333;
+}
+
+.cancel-button {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+}
+
+.cancel-button:hover {
+    background-color: #5a6268;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .container {
+        margin: 10px;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .input-section {
+        flex-direction: column;
+        gap: 10px; /* Space between elements in column layout */
+    }
+
+    #newTaskInput {
+        width: 100%;
+    }
+
+    #taskPriorityInput {
+        width: 100%;
+        margin-right: 0; /* Remove margin for column layout */
+    }
+
+    #addTaskButton {
+        width: 100%;
+    }
+
+    .filters {
+        flex-wrap: wrap;
+    }
+
+    .filters button {
+        flex: 1 1 auto;
+        min-width: 100px;
+    }
+
+    #taskList li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    #taskList li .task-text-and-priority {
+        width: 100%;
+        justify-content: space-between; /* Spread text and priority */
+    }
+
+    #taskList li .task-buttons {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
