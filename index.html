@@ -8,10 +8,17 @@
 </head>
 <body>
     <div class="container">
-        <h1>To-Do List</h1>
+        <div class="header">
+            <h1>To-Do List</h1>
+            <button id="themeSwitcher" class="theme-switcher" aria-label="Toggle dark mode">
+                <ion-icon name="moon-outline"></ion-icon>
+            </button>
+        </div>
+
         <div class="input-section">
-            <input type="text" id="newTaskInput" placeholder="Add a new task...">
-            <select id="taskPriorityInput">
+            <input type="text" id="newTaskInput" placeholder="Add a new task..." aria-label="New task input">
+            <input type="date" id="taskDueDateInput" aria-label="Task due date">
+            <select id="taskPriorityInput" aria-label="Task priority">
                 <option value="low">Low</option>
                 <option value="medium" selected>Medium</option>
                 <option value="high">High</option>
@@ -19,13 +26,18 @@
             <button id="addTaskButton">Add Task</button>
         </div>
 
-        <div class="filters">
-            <button id="filterAll" class="active">All</button>
-            <button id="filterActive">Active</button>
-            <button id="filterCompleted">Completed</button>
+        <div class="controls">
+            <div class="filters">
+                <button id="filterAll" class="active" aria-pressed="true">All</button>
+                <button id="filterActive" aria-pressed="false">Active</button>
+                <button id="filterCompleted" aria-pressed="false">Completed</button>
+            </div>
+            <div class="search-section">
+                <input type="text" id="searchInput" placeholder="Search tasks..." aria-label="Search tasks">
+            </div>
         </div>
 
-        <ul id="taskList">
+        <ul id="taskList" aria-live="polite">
             </ul>
 
         <div class="actions">
@@ -33,15 +45,20 @@
         </div>
     </div>
 
-    <div id="customModal" class="modal">
+    <div id="customModal" class="modal" role="alertdialog" aria-modal="true" aria-labelledby="modalMessage">
         <div class="modal-content">
-            <span class="close-button">&times;</span>
+            <span class="close-button" tabindex="0" role="button" aria-label="Close dialog">&times;</span>
             <p id="modalMessage"></p>
             <div class="modal-actions">
                 <button id="modalConfirmButton" class="confirm-button">Yes</button>
                 <button id="modalCancelButton" class="cancel-button">No</button>
             </div>
         </div>
+    </div>
+
+    <div id="undoToast" class="toast" role="status" aria-live="assertive">
+        <p id="undoMessage">Task deleted.</p>
+        <button id="undoButton">Undo</button>
     </div>
 
     <script src="script.js"></script>
